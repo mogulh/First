@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load static%}
+<html>
+    <head>
+            <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="https://vjs.zencdn.net/7.8.3/video-js.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <title>Filamy- Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{% static 'js/video.js' %}"></script>
+        <script>
+            var user = '{{request.user}}';
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
+
+            function getCooky(name){
+            var cookieArr = document.cookie.split(';')
+
+                for(var i = 0; i<cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split('=');
+                    if(name == cookiePair[0].trim()){
+                    return decodeURIComponent(cookiePair[1]);
+                    }
+                }
+            return null;
+            }
+            var cart = JSON.parse(getCooky('cart'))
+
+            if(cart == undefined){
+                cart = {}
+                console.log('cart created')
+                document.cookie = 'cart = ' +JSON.stringify(cart) + ";domain=;path=/"
+            }
+            console.log(cart)
+
+
+
+        </script>
+    </head>
+    <body>
+
+        <div class="container-fluid " style="margin-top: 10px;">
+            <div class="row">
+
+
+            <!--left column-->
+                <div class="col-sm-2" ><a href="{% url 'home' %}">
+                    <img class="image"
+                src=" {% static 'images/icons/filamy logo symbol (100X100).png' %}"
+                style="height: 40px; width: 120px;"></a>
+                  </div>
+
+
+            <!--center column-->
+              <div class="col-sm" >
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search" id="searchtext">
+                    <div class="input-group-append">
+                    <button class="btn" type="submit" id="search-btn" style="background-color: lightseagreen;" onclick="search()">Go</button>
+                    </div>
+              </div>
+              </div>
+
+
+              <!--right column-->
+              <div class="col-sm-3 d-flex justify-content-end" >
+
+                <div>
+
+
+                  <a class="fa" style="font-size:30px" href="{% url 'cart' %}">&#xf07a;</a>
+                    <span class='badge badge-warning' id='lblCartCount'>{{mtotal}}</span>
+                </div>
+                   <img src="{% static 'images/icons/icons8-heart-outline-100.png' %}" style="height: 30px; width: 30px;" id="lists">
+                   <img src="{% static 'images/icons/icons8-customer-100.png' %}" style="height: 30px; width: 30px;" id="profile">
+
+              </div>
+        </div>
+      </div>
+
+
+        <div class="container-fluid">
+            {% block content%}
+             {% endblock content%}
+
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                     <div class="modal-body">
+
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                         </button>
+        <!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                          <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script src="{% static 'js/cart.js' %}"></script>
+    </body>
+</html>

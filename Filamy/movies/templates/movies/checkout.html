@@ -1,0 +1,193 @@
+{% extends 'movies/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row">
+
+        <div class="col-lg-6 ">
+            <div class="card" style="margin:5px;" id="form-wrapper">
+                <div >
+                    <form id="form"><br>
+
+                    <div id="user-info" class="">
+                        <h5 style="padding:10px;">Personal Details</h5>
+                        <div class="form-field">
+                            <input id="name" required type="text" class="form-control" name="name" placeholder="Name..">
+                        </div>
+                         <div class="form-field">
+                            <input id="email"required type="email" class="form-control" name="email" placeholder="name@example.com..">
+                        </div><br>
+
+                         <div class="form-field" style="width:60%;">
+                            <input id="location" required type="text" class="form-control" name="location" placeholder="location">
+                        </div>
+
+                         <div class="form-field" style="width:38%;">
+                            <input id="town" required type="text" class="form-control" name="town" placeholder="town">
+                        </div>
+                        <hr style="width:90%;">
+
+                    </div><br>
+                        <h5 style="padding:10px;">Select Vendor</h5>
+
+                    <div id="vendor-info">
+                         <div class="form-field " style="width:99%;">
+                            <select id="vendor" class="form-control">
+                                {% for v in vendors %}
+                                <option>{{v.name}}</option>
+                                 {% endfor %}
+                            </select>
+                        </div>
+
+
+                    </div>
+
+                        <hr style="width:90%;">
+
+                        <input type="submit" class="btn btn-success btn-block" id="form-button" value="Continue">
+
+
+
+
+                        </form>
+
+                </div>
+
+            </div><br>
+
+             <div id="payment-info" class="card hidden">
+                        <div>
+                            Payment options
+                        </div>
+                 <button class="btn btn-success" id="make_payment">Make payment</button>
+
+
+
+                    </div>
+
+        </div>
+
+         <div class="col-lg-6 ">
+
+             <div class="card" style="margin:5px;">
+
+                  <a  style="width:30%;" class="btn btn-outline-dark" href="{% url 'cart'%}">&#x2190; Back to Cart</a>
+
+                 <h3>Order Summary</h3><hr style="width:90%;">
+
+                 {% for item in items %}
+
+             <div style="display:flex; align-items:flex-stretch; border-bottom: 1px solid #adadad">
+                 <div style="flex:1;">
+                     <img style="width:50px;" src="{% static 'images/icons/pk movie.jpg' %}">
+                 </div>
+                 <div style="flex:2;">{{item.movie}}</div>
+                 <div style="flex:1;">{{item.duration}}</div>
+                 <div style="flex:1;">{{item.type}}</div>
+
+
+             </div>
+                 <hr>
+
+                 {% endfor %}
+
+                 <h5><strong>Items: {{mtotal}}</strong></h5>
+                      <h5><strong>Total: {{price}}</strong></h5>
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+ if(user != 'AnonymousUser'){
+       document.getElementById('user-info').innerHTML = ''
+
+    }
+   form = document.getElementById('form');
+   form.addEventListener('submit', function(e){
+   e.preventDefault()
+   console.log('form submitted')
+   document.getElementById('form-button').classList.add('hidden')
+   document.getElementById('payment-info').classList.remove('hidden')
+
+
+
+   })
+
+   document.getElementById('make_payment').addEventListener('click',function(e){
+   console.log('payment made')
+
+    if ({{mtotal}}>0){
+    submitForm()
+    }
+    else{
+    alert('you have no items in cart')}
+   })
+
+
+   function submitForm(){
+
+
+
+   var name = ''
+   var town = ''
+   var location = ''
+   var email = ''
+   var e = document.getElementById("vendor");
+   var vendor = e.options[e.selectedIndex].text;
+
+   var total = '{{price}}'
+
+
+   if(user === 'AnonymousUser'){
+
+
+   var name = document.getElementById('name').value
+   var town = document.getElementById('town').value
+   var location = document.getElementById('location').value
+   var email = document.getElementById('email').value
+
+
+}
+
+
+
+       orderInfo={
+           'name' : name,
+           'town' : town,
+           'location' : location,
+           'email' : email,
+           'vendor' : vendor,
+           'total':total
+       }
+
+       var origin   = window.location.origin
+
+       fetch(origin + '/process/',{
+        method:'POST',
+        headers:{'Content-Type':'application/json',
+                    'X-CSRFToken': csrftoken},
+        body: JSON.stringify({'order': orderInfo})
+        })
+        .then((response)=>{
+            return response.json();
+        })
+        .then((data)=>{
+            console.log('data:' , data)
+            cart = {}
+             document.cookie = 'cart = ' +JSON.stringify(cart) + ";domain=;path=/"
+            window.location.href="{%url 'home'%}"
+
+        })
+   }
+</script>
+
+{% endblock content %}

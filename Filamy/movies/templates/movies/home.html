@@ -1,0 +1,287 @@
+{% extends 'movies/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner" >
+    <div class="carousel-item active " style="max-height:400px; ">
+      <img src="https://image.tmdb.org/t/p/w500/{{popular.00.back}}" class="d-block w-100" alt="..." style="filter:grayscale()">
+      <div class="carousel-caption" style="background-color:rgba(0, 0, 0, 0.5); border-radius:5px;">
+        <div class="flex-row d-flex" style="width:auto; max-width:1000px;" >
+            <img src="https://image.tmdb.org/t/p/w500/{{popular.00.poster}}" class="img-fluid img-thumbnail" style="margin:5px; max-width: 200px; width:auto; height:auto;">
+
+            <div style="padding:10px;" class="align-items-start">
+            <h5>{{popular.00.title}}</h5>
+            <p style="align-text:left;">{{popular.00.desc|truncatechars:300}}</p>
+                <br>
+                <div class="flex-row d-flex">
+                <button data-movie ="{{popular.01.id}}" data-action="add" data-name="{{popular.01.title}}" class=" update-cart btn btn-primary" style="margin-right:10px; width:70%;">Add to Cart</button>
+                    <button class="btn btn-success">Watch Trailer</button>
+                    </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item" style="max-height:400px;">
+      <img src="https://image.tmdb.org/t/p/w500/{{popular.01.back}}" class="d-block w-100" alt="..." style="filter:grayscale()">
+      <div class="carousel-caption" style="background-color:rgba(0, 0, 0, 0.5); border-radius:5px;">
+        <div class="flex-row d-flex" style="width:auto; max-width:1000px;" >
+            <img src="https://image.tmdb.org/t/p/w500/{{popular.01.poster}}" class="img-fluid img-thumbnail" style="margin:5px; width:auto; height:auto; max-width:200px;">
+            <div style="padding:10px;" class="align-items-start">
+            <h5>{{popular.01.title}}</h5>
+            <p style="align-text:left;">{{popular.01.desc|truncatechars:200}}</p>
+                <br>
+                <div class="flex-row d-flex">
+                <button data-movie ="{{popular.01.id}}" data-action="add" data-name="{{popular.01.title}}" class="update-cart btn btn-primary" style="margin-right:10px; width:70%;">Add to Cart</button>
+                    <button class="btn btn-success">Watch Trailer</button>
+                    </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item" style="max-height:400px;">
+      <img src="https://image.tmdb.org/t/p/w500/{{popular.02.back}}" class="d-block w-100" alt="..." style="filter:grayscale()">
+      <div class="carousel-caption" style="background-color:rgba(0, 0, 0, 0.5); border-radius:5px;">
+        <div class="flex-row d-flex" style="width:auto; max-width:1000px;" >
+            <img src="https://image.tmdb.org/t/p/w500/{{popular.02.poster}}" class="img-fluid img-thumbnail" style="margin-right:5px; width:auto; height:auto; max-width:200px;">
+            <div style="padding:10px;" class="align-items-start">
+            <h5>{{popular.02.title}}</h5>
+            <p style="align-text:left;">{{popular.02.desc|truncatechars:200}}</p>
+                <br>
+                <div class="flex-row d-flex">
+                <button data-movie ="{{popular.02.id}}" data-action="add" data-name="{{popular.02.title}}" class="update-cart btn btn-primary" style="margin-right:10px; width:70%;">Add to Cart</button>
+                    <button class="btn btn-success">Watch Trailer</button>
+                    </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div><br>
+
+ <div>
+
+        <div style="background-color: white; position: sticky; top: 0; z-index: 2; margin-top: 5px;">
+            <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist" >
+                <li class="nav-item">
+                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-similar" role="tab" aria-controls="pills-home" aria-selected="true" >FOR YOU</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-trending" role="tab" aria-controls="pills-profile" aria-selected="false" >TV SHOWS</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-popular" role="tab" aria-controls="pills-contact" aria-selected="false" >MOVIES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-imdb-tab" data-toggle="pill" href="#pills-imdb" role="tab" aria-controls="pills-imdb" aria-selected="false">TOP IMDB</a>
+                  </li>
+              </ul>
+              <hr style="height: 5px; width: 10px;">
+
+
+        </div>
+
+        <hr>
+
+
+
+      <div class="tab-content" id="pills-tabContent">
+          <!--similar tab-->
+
+        <div class="tab-pane fade show active" id="pills-similar" role="tabpanel" aria-labelledby="pills-home-tab">
+           <div class="row" id="m-similar" style="margin:5px;">
+
+
+               {% for p in popular|slice:"3:20" %}
+
+               <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="https://image.tmdb.org/t/p/w500/{{p.poster}}" class="img-fluid img-thumbnail float-left" style="margin-right:5px; max-width:200px;">
+
+                       <h4>{{p.title}}</h4>
+                       <p>{{p.desc|truncatechars:100}}</p>
+                       <div class="flex-column d-flex" style="">
+                            <button data-movie ="{{p.id}}" data-action="add" data-name="{{p.title}}" class="btn btn-primary update-cart" style="margin-bottom:2%;">Add to Cart</button>
+                           <div class="flex-row d-flex" >
+
+                               <!-- Button trigger modal -->
+                            <button style="width:100%; margin-right:1%;" type="button" class="btn btn-light video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/{{p.v_key}}" data-target="#myModal">
+                              Trailer
+                            </button><a href="{% url 'details' p.id %}">
+                               <button class="btn btn-secondary">More</button></a>
+                           </div>
+                       </div>
+                   </div>
+
+               </div>
+
+                {% endfor %}
+
+               <div class = "col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                   <h1>next</h1>
+                   </div>
+               </div>
+           </div>
+
+        </div>
+
+        <!--trending tab-->
+        <div class="tab-pane fade" id="pills-trending" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="row" id="m-trending">
+                {% for t in tv|slice:":20" %}
+
+                 <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="https://image.tmdb.org/t/p/w500/{{t.poster}}" class="img-fluid img-thumbnail float-left" style="margin-right:5px; max-width:200px;">
+
+                       <h4>{{t.title}}</h4>
+                       <p>{{t.desc|truncatechars:100}}</p>
+                       <div class="flex-column d-flex" style="">
+                            <button data-movie ="{{t.id}}" data-action="add" data-name="{{t.title}}" class="btn btn-primary update-cart" style="margin-bottom:2%;">Add to Cart</button>
+                           <div class="flex-row d-flex" >
+
+                               <!-- Button trigger modal -->
+                            <button style="width:100%; margin-right:1%;" type="button" class="btn btn-light video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/{{t.v_key}}" data-target="#myModal">
+                              Trailer
+                            </button><a href="{% url 'details' t.id %}">
+                               <button class="btn btn-secondary">More</button></a>
+                           </div>
+                       </div>
+                   </div>
+
+               </div>
+               {% endfor %}
+
+            </div> <br>
+        </div>
+
+        <!--popular tab-->
+        <div class="tab-pane fade" id="pills-popular" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="row" id="m-popular">
+
+                 <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="{% static 'images/icons/pk movie.jpg' %}" class="img-fluid img-thumbnail float-left" style="margin-right:5px;">
+
+                       <h4>Movie Title</h4>
+                       <p>movie description or synopsis</p>
+                       <div class="flex-column d-flex" style="">
+                            <button class="btn btn-primary" style="margin-bottom:2%;">Add to Cart</button>
+                            <button class="btn btn-success">Watch Trailer</button>
+                       </div>
+                   </div>
+
+               </div>
+               <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="{% static 'images/icons/pk movie.jpg' %}" class="img-fluid img-thumbnail float-left" style="margin-right:5px;">
+
+                       <h4>Movie Title</h4>
+                       <p>movie description or synopsis</p>
+                       <div class="flex-column d-flex" style="">
+                            <button class="btn btn-primary" style="margin-bottom:2%;">Add to Cart</button>
+                            <button class="btn btn-success">Watch Trailer</button>
+                       </div>
+                   </div>
+
+               </div>
+                <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="{% static 'images/icons/pk movie.jpg' %}" class="img-fluid img-thumbnail float-left" style="margin-right:5px;">
+
+                       <h4>Movie Title</h4>
+                       <p>movie description or synopsis</p>
+                       <div class="flex-column d-flex" style="">
+                            <button class="btn btn-primary" style="margin-bottom:2%;">Add to Cart</button>
+                            <button class="btn btn-success">Watch Trailer</button>
+                       </div>
+                   </div>
+
+               </div>
+                <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="{% static 'images/icons/pk movie.jpg' %}" class="img-fluid img-thumbnail float-left" style="margin-right:5px;">
+
+                       <h4>Movie Title</h4>
+                       <p>movie description or synopsis</p>
+                       <div class="flex-column d-flex" style="">
+                            <button class="btn btn-primary" style="margin-bottom:2%;">Add to Cart</button>
+                            <button class="btn btn-success">Watch Trailer</button>
+                       </div>
+                   </div>
+
+               </div>
+                <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="{% static 'images/icons/pk movie.jpg' %}" class="img-fluid img-thumbnail float-left" style="margin-right:5px;">
+
+                       <h4>Movie Title</h4>
+                       <p>movie description or synopsis of the movie it canbereally longaki waai hii maneno sijui nitafika wapi najaribu andika lakini simak </p>
+                       <div class="flex-column d-flex" style="">
+                            <button class="btn btn-primary" style="margin-bottom:2%;">Add to Cart</button>
+                            <button class="btn btn-success">Watch Trailer</button>
+                       </div>
+                   </div>
+
+               </div>
+
+            </div> <br>
+        </div>
+
+
+       <!--IMDb tab-->
+
+      <div class="tab-pane fade" id="pills-imdb" role="tabpanel" aria-labelledby="pills-imdb-tab">
+          <div class="row" id="m-top">
+               <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="{% static 'images/icons/pk movie.jpg' %}" class="img-fluid img-thumbnail float-left" style="margin-right:5px;">
+
+                       <h4>Movie Title</h4>
+                       <p>movie description or synopsis</p>
+                       <div class="flex-column d-flex" style="">
+                            <button class="btn btn-primary" style="margin-bottom:2%;">Add to Cart</button>
+                            <button class="btn btn-success">Watch Trailer</button>
+                       </div>
+                   </div>
+
+               </div>
+               <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="{% static 'images/icons/pk movie.jpg' %}" class="img-fluid img-thumbnail float-left" style="margin-right:5px;">
+
+                       <h4>Movie Title</h4>
+                       <p>movie description or synopsis</p>
+                       <div class="flex-column d-flex" style="">
+                            <button class="btn btn-primary" style="margin-bottom:2%;">Add to Cart</button>
+                            <button class="btn btn-success">Watch Trailer</button>
+                       </div>
+                   </div>
+
+               </div>
+
+          </div>
+        </div>
+    </div>
+
+ </div>
+
+
+{% endblock content %}

@@ -1,0 +1,103 @@
+{% extends 'movies/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid" >
+
+        <div class="card bg-dark text-white responsive" style="height: 400px;" id="m-details">
+            <img class='card-img' src="https://image.tmdb.org/t/p/w500/{{moovy.back}}" alt='Card image' style='width: 100%; height: inherit; filter: grayscale();'>
+            <div class='card-img-overlay' style='margin: auto; background-color:rgba(0, 0, 0, 0.5); display: flex;'>
+                <img src="https://image.tmdb.org/t/p/w500/{{moovy.poster}}" style='width: auto;  height: 350px;'><br>
+                <div style='margin-left: 20px;'>
+                    <h3 class='card-title'>{{moovy.title}}</h3>
+
+                    <div id='genres'>
+                        {% for g in moovy.genres %}
+
+                         <span style='background-color: rgba(135, 206, 250, 0.7); border-radius: 15px; padding: 5px; margin-right:5px;'>
+                             {{g.name}}
+                        </span>
+
+                        {% endfor %}
+
+
+                    </div><br>
+                    <span>Duration:</span>
+                    <span>{{moovy.time}} min</span><br>
+                    <p class='card-text'>{{moovy.desc}}</p><br><br>
+
+                      <div class="flex-row d-flex">
+                <button data-movie ="{{moovy.id}}" data-action="add" data-name="{{moovy.title}}"class="btn btn-primary" style="margin-right:10px; width:70%;">Add to Cart</button>
+                    <button class="btn btn-success">Watch Trailer</button>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div><br>
+        <div class="row">
+            <!--center column-->
+           <div class="col-sm">
+
+
+            <h3>You Might Also Like</h3>
+
+            <div class="row" id="d-similar" >
+
+                {% for r in reccs %}
+
+                 <div class="col-lg-4 " style="color:white;">
+                   <div style="margin:5px; height:auto;" class="shadow-lg p-2 mb-5 bg-dark rounded">
+                       <img src="https://image.tmdb.org/t/p/w500/{{r.poster}}" class="img-fluid img-thumbnail float-left" style="margin-right:5px; max-width:240px;">
+
+                       <h4>{{r.title}}</h4>
+                       <p>{{r.desc|truncatechars:100}}</p>
+                       <div class="flex-column d-flex" style="">
+                            <button data-movie ="{{r.id}}" data-action="add" data-name="{{r.title}}" class="btn btn-primary update-cart" style="margin-bottom:2%;">Add to Cart</button>
+                           <div class="flex-row d-flex" >
+
+                               <!-- Button trigger modal -->
+                            <button style="width:100%; margin-right:1%;" type="button" class="btn btn-light video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/{{r.vkey}}" data-target="#myModal">
+                              Trailer
+                            </button><a href="{% url 'details' r.id %}">
+                               <button class="btn btn-secondary">More</button></a>
+                           </div>
+                       </div>
+                   </div>
+
+               </div>
+
+                {% endfor %}
+
+
+            </div><br>
+           </div>
+
+
+              <!--right column-->
+              <div class="col-sm-4" style=" width: 100%; margin: 0px; padding: 0px;">
+                <h3>Reviews</h3>
+                <div id="reviews" class="container" style="border:2px solid cornflowerblue ">
+                    {% for r in reviews %}
+                    <div>
+                        <h5>{{r.author}}</h5>
+                        <p>{{r.content|truncatechars:100}}</p>
+                    </div><hr>
+                    {% endfor %}
+
+
+                </div>
+
+
+
+
+
+              </div>
+        </div>
+
+
+
+      </div>
+
+{% endblock content %}

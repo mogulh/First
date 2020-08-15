@@ -1,0 +1,250 @@
+{% extends 'users/main.html' %}
+{% load static %}
+{% block title%} dashboard{%endblock%}
+{%block content%}
+
+
+ <div class="row">
+            <div class="col-sm-2">
+
+                <ul class="nav nav-pills mb-3 flex-column" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+                    </li><br>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab" aria-controls="pills-requests" aria-selected="false">All Requests</a>
+                    </li><br>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-pending-tab" data-toggle="pill" href="#pills-pending" role="tab" aria-controls="pills-pending" aria-selected="false">Pending</a>
+                    </li><br>
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-completed-tab" data-toggle="pill" href="#pills-completed" role="tab" aria-controls="pills-completed" aria-selected="false">Completed</a>
+                    </li><br>
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-rejected-tab" data-toggle="pill" href="#pills-rejected" role="tab" aria-controls="pills-rejected" aria-selected="false">Rejected</a>
+					</li><br>
+					<li class="nav-item">
+                        <a class="nav-link" id="pills-apps-tab" data-toggle="pill" href="#pills-apps" role="tab" aria-controls="pills-apps" aria-selected="false">Applications</a>
+					</li><br>
+
+
+
+				  </ul>
+
+				  <button id="btn-logout" class="btn btn-secondary">LogOut</button>
+
+
+
+            </div>
+
+            <div class="col-sm" >
+
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><br>
+
+                        <h3>Home</h3>
+
+                        <div class="row " style="height: 100%;">
+
+
+	                        <div id = "total" class="card col-sm-12" style="margin: 2px; background-color: #6fdeb9; ">
+	                            <h2 style="text-align: center;">All Requests</h2>
+
+	                        </div>
+
+	                        <div id="pending" class="card col-md-6" style="margin: 0px;background-color: #d1ca62">
+	                            <h2 style="text-align: center;">Pending</h2>
+
+	                        </div>
+
+	                        <div id="rejected" class="card col-md-6" style="margin: 0px; background-color: #780000">
+	                            <h2 style="text-align: center;">rejected</h2>
+
+	                        </div>
+
+	                        <div id="completed" class="card col-sm-12" style="margin: 2px; background-color: #007802">
+	                            <h2 style="text-align: center;">Completed</h2>
+
+	                        </div>
+
+
+
+                       </div>
+
+
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-requests" role="tabpanel" aria-labelledby="pills-requests-tab">
+                    	<h3>All requests</h3>
+                    	<div class="row">
+                    		<table class="table">
+							  <thead class="thead-dark">
+							    <tr>
+							      <th scope="col">#</th>
+							      <th scope="col">Type</th>
+							      <th scope="col">Client</th>
+							      <th scope="col">Phone</th>
+							      <th scope="col">Location</th>
+							      <th scope="col">Salary</th>
+							      <th scope="col">StayType</th>
+								  <th scope="col">Status</th>
+								  <th scope="col"></th>
+							    </tr>
+							  </thead>
+							  <tbody id="all-requests">
+
+
+							  </tbody>
+							</table>
+                    	</div>
+
+
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-pending" role="tabpanel" aria-labelledby="pills-pending-tab">Pending
+
+                    	<div class="row">
+                    		<table class="table">
+							  <thead class="thead-dark">
+							    <tr>
+									<th scope="col">#</th>
+									<th scope="col">Type</th>
+									<th scope="col">Client</th>
+									<th scope="col">Phone</th>
+									<th scope="col">Location</th>
+									<th scope="col">Salary</th>
+									<th scope="col">StayType</th>
+
+									<th scope="col"></th>
+							    </tr>
+							  </thead>
+							  <tbody id="rPending">
+
+
+							  </tbody>
+							</table>
+                    	</div>
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-completed" role="tabpanel" aria-labelledby="pills-completed-tab">Completed
+
+
+                    	<div class="row">
+                    		<table class="table">
+							  <thead class="thead-dark">
+							    <tr>
+									<th scope="col">#</th>
+									<th scope="col">Type</th>
+									<th scope="col">Client</th>
+									<th scope="col">Phone</th>
+									<th scope="col">Location</th>
+									<th scope="col">Salary</th>
+									<th scope="col">StayType</th>
+
+									<th scope="col"></th>
+							    </tr>
+							  </thead>
+							  <tbody id="rCompleted">
+
+
+							  </tbody>
+							</table>
+                    	</div>
+
+
+
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-clients" role="tabpanel" aria-labelledby="pills-clients-tab">Clients</div>
+                    <div class="tab-pane fade" id="pills-nannies" role="tabpanel" aria-labelledby="pills-nannies-tab">Nannies</div>
+						<div class="tab-pane fade" id="pills-apps" role="tabpanel" aria-labelledby="pills-apps-tab">
+							<h3>All Applications</h3>
+							<div class="row">
+								<table class="table">
+								  <thead class="thead-dark">
+									<tr>
+									  <th scope="col">#</th>
+									  <th scope="col">Type</th>
+									  <th scope="col">Name</th>
+									  <th scope="col">Phone</th>
+									  <th scope="col">Location</th>
+									  <th scope="col">Age</th>
+									  <th scope="col">Employment</th>
+									  <th scope="col"></th>
+									</tr>
+								  </thead>
+								  <tbody id="all-apps">
+
+
+								  </tbody>
+								</table>
+							</div>
+
+
+
+						</div><div class="tab-pane fade" id="pills-apps" role="tabpanel" aria-labelledby="pills-apps-tab">
+							<h3>All requests</h3>
+							<div class="row">
+								<table class="table">
+								  <thead class="thead-dark">
+									<tr>
+									  <th scope="col">#</th>
+									  <th scope="col">Type</th>
+									  <th scope="col">Name</th>
+									  <th scope="col">Phone</th>
+									  <th scope="col">Location</th>
+									  <th scope="col">Age</th>
+									  <th scope="col">Employment</th>
+									  <th scope="col"></th>
+									</tr>
+								  </thead>
+								  <tbody id="all-apps">
+
+
+								  </tbody>
+								</table>
+							</div>
+
+
+
+						</div>
+
+                    <div class="tab-pane fade" id="pills-rejected" role="tabpanel" aria-labelledby="pills-rejected-tab">Rejected
+
+
+                    	<div class="row">
+                    		<table class="table">
+							  <thead class="thead-dark">
+							    <tr>
+									<th scope="col">#</th>
+									<th scope="col">Type</th>
+									<th scope="col">Client</th>
+									<th scope="col">Phone</th>
+									<th scope="col">Location</th>
+									<th scope="col">Salary</th>
+									<th scope="col">StayType</th>
+
+									<th scope="col"></th>
+							    </tr>
+							  </thead>
+							  <tbody id="rRejected">
+
+
+							  </tbody>
+							</table>
+						</div>
+
+
+
+
+
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+{% endblock %}
